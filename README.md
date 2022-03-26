@@ -1,119 +1,67 @@
-# ![GA Logo](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project 4: Choose Your Own Adventure
+# Project 4: Choose Your Own Adventure
 
-Pick a Kaggle competition from the following list. You have the choice of completing a regression problem, a classification problem, or an NLP problem involving either classification or sentiment analysis. Perform some EDA, and fit and evaluate at least two models on the dataset you've chosen. With most hack-a-thons The final presentation is key. you want to sell your model as much as possible. Therefore the final presentation and deployment of your models are the goal as opposed to a fully polished codebase. 
+## Group Awesome: Curtis Hope Hill, Mary Schindler (McAteer), and Kathy Simon (alphabetical order) (Author: Mary Schindler)
 
-## Datasets
+From a list of possible Kaggle competitions, Group Awesome selected a NLP classification problem based on 'Sentiment Analysis on Movie Reviews', [Sentiment Analysis on Movie Reviews](https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews). We followed the data science process: cleaning our data and performing EDA, as well as fiting and evaluating several models in order to find the best one. After comparing several models using both CountVectorizer and TF-IDFVectorizer to vectorize the given text, our group found that SupportVectorClassifier with TF-IDFVectorizer performed the best. 
 
-### Regression
 
-- [Restaurant Revenue Prediction](https://www.kaggle.com/c/restaurant-revenue-prediction)
-- [Video Game Sales Prediction](https://www.kaggle.com/rush4ratio/video-game-sales-with-ratings)
-- [Box Office Revenue Prediction](https://www.kaggle.com/c/tmdb-box-office-prediction)
-- [New York City Taxi Fare Prediction](https://www.kaggle.com/c/new-york-city-taxi-fare-prediction)
+## Dataset
 
-### Classification
+- [Sentiment Analysis on Movie Reviews](https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews) 
 
-- [Predicting a Biological Response](https://www.kaggle.com/c/bioresponse/data)
-- [Kobe Bryant Shot Selection](https://www.kaggle.com/c/kobe-bryant-shot-selection)
-- [Shelter Animal Outcomes](https://www.kaggle.com/c/shelter-animal-outcomes)
-- [Airbnb New User Bookings](https://www.kaggle.com/c/airbnb-recruiting-new-user-bookings)
-
-### NLP
-
-- [Sentiment Analysis on Movie Reviews](https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews) / [Alternative Sentiment Analysis on Movie Reviews](https://www.kaggle.com/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
-- [What's Cooking?](https://www.kaggle.com/c/whats-cooking)
-- [Women's E-Commerce Clothing Reviews](https://www.kaggle.com/nicapotato/womens-ecommerce-clothing-reviews)
-
-### Image Classification
-
-- [Kannada MNIST](https://www.kaggle.com/c/Kannada-MNIST)
-- [Intel Image Classification](https://www.kaggle.com/puneet6060/intel-image-classification)
-
-## Timeline
+## Timeline - Completed Steps:
 
 - **9am**: Project introduction.
 - **10am**: By 10am, answer the [check-in form](https://forms.gle/HC3zUkuQfyNXG7iu9) with the dataset you've chosen.
-- **4:30pm**: 5-minute lightning talks where you walk us through your process. **No slides necessary** -- it's fine if you'd prefer walk us through your Jupyter notebook instead, but remember you only have 5 minutes! (Don't forget the viz) 
-- **5pm**: Make sure your project work has been pushed.
 
-## Guidelines
+## Timeline - Upcoming:
 
-We know this is a short time for a project. We're not expecting anything as polished as project two or three. However, the goal is for you to have something to show for your time. At a minimum, do some EDA and have at least two models fit and scored, but remember crisp product deployment wins competitions. 
+- **4:30pm**: 5-minute lightning talks where Group Awesome will walk you through the project. 
+- **5pm**: Group Awesome will make sure the project work has been pushed.
 
-## Groups
-|group| p1 | p2 | p3 |
-|---|---|---|---|
-|1 | Matthew | Jeffrey | Terri |
-|2 | Mark | Alonzo | Brian |
-|3 | Mary | Curtis | Kathy |  
-
-## Rubric
-
-When evaluated against the rubric, we'll take into account that that you had a very limited amount of time to work on this project. Do your best with the time you have.
-
-Scores will be out of 18 points based on the 6 categories in the rubric.
-
-3 points per section.
-
-| Score | Interpretation |
-| --- | --- |
-| **0** | *Project fails to meet the minimum requirements for this item.* |
-| **1** | *Project meets the minimum requirements for this item, but falls significantly short of portfolio-ready expectations.* |
-| **2** | *Project exceeds the minimum requirements for this item, but falls short of portfolio-ready expectations.* |
-| **3** | *Project meets or exceeds portfolio-ready expectations; demonstrates a thorough understanding of every outlined consideration.* |
 
 ### Data Cleaning and EDA
 
-- Are missing values imputed/handled appropriately?
-- Are distributions examined and described?
-- Are outliers identified and addressed?
-- Are appropriate summary statistics provided?
-- Are steps taken during data cleaning and EDA framed appropriately?
+The group was giving training and testing data sets from Kaggle with no missing or null values. Our target value was 'Sentiment', which was scored on a scale 0 - 4. Those scores had the following normalized value_counts (our baseline model):
 
-### Visualizations
+- 0 - negative, 0.045
+- 1 - somewhat negative, 0.175
+- 2 - neutral, 0.510
+- 3 - somewhat positive, 0.211
+- 4 - positive, 0.059
 
-- Are sufficient visualizations provided?
-- Do plots accurately demonstrate valid relationships?
-- Are plots labeled properly?
-- Are plots interpreted appropriately?
-- Are plots formatted and scaled appropriately for inclusion in a notebook-based technical report?
+The scores were normally distributed with no outliers. While there no missing values that needed to be addressed, in order to properly determine the most frequent words, the duplicate instances of 'SentenceID' had to be removed. Limited cleaning was done to the data to perserve instances of exclaimations being used, uppercase being used, which would contribute to 'Sentiment'.
+
+![image](./imgs/scatter_words.png)
+
+Additionally, as demonstrated by the above image, there were also no outliers in terms of word counts of reviews. Interestingly, there were trends amongst the length of a review and 'Sentiment':
+
+![imaage](./imgs/scatter_words_sent.png)
+
 
 ### Preprocessing and Modeling
 
-- Are categorical variables appropriately handled?
-- Does the student properly split and/or sample the data for validation/training purposes?
-- Does the student utilize feature selection to remove noisy or multi-collinear features?
-- Does the student test and evaluate a variety of models to identify a production algorithm?
-- Does the student defend their choice of production model relevant to the data at hand and the problem?
-- Does the student explain how the model works and evaluate its performance successes/downfalls?
+Our target variable in this instance was 'Sentiment'. We used 'Phrase' as the feature to help build our model.  Using both the vectorizer CountVectorizer and TF-IDFVectorizer, we explored different models (including but not limited to LogReg, MultinomialNB, etc.). All of the models were overfit.
 
-### Evaluation and Conceptual Understanding
+For each model we generated a Classification Report and Confusion Matrix in order to evaluate the models. We found that TF-IDFVectorizer with SupportVectorClassifier performed the best at Train = 0.7743, Test = 0.6587.
 
-- Does the student accurately identify and explain the baseline score?
-- Does the student select and use metrics relevant to the problem objective?
-- Does the student interpret the results of their model for purposes of inference?
-- Is domain knowledge demonstrated when interpreting results?
+![image](./imgs/svmmatrix.png)
 
-### Project Organization
+As TF-IDF weights words in addition to counting them it makes sense it would produce a better model, especially based on a metric like 'Sentiment' for movie reviews. A downfall of this model, regrettably, is how long it takes to run compared to something more simple like LogReg
 
-- Are modules imported correctly (using appropriate aliases)?
-- Does the README provide a good executive summary of the project?
-- Is markdown formatting used appropriately to structure notebooks?
-- Are there an appropriate amount of comments to support the code?
-- Are files & directories organized correctly?
-- Are there unnecessary files included?
-- Do files and directories have well-structured, appropriate, consistent names?
 
-### Python Syntax and Control Flow
+### Conclusion
 
-- Is care taken to write human readable code?
-- Is the code syntactically correct (no runtime errors)?
-- Does the code generate desired results (logically correct)?
-- Does the code follows general best practices and style guidelines?
-- Are Pandas and sklearn functions used appropriately?
+While the group's model was not able to reach the industry benchmark of 80% accuracy, our model performed decently with approx. 66% accuracy among the 'Sentiment' labels 0 - 4. With additionally cleaning and pre-processing it is likely that we could have gotten a better score. Given the time constraint, however, forgoing additional text-data cleaning for attempting different types of models was worth it. Comparing our final model to our baseline model, we received the following scores for 'Sentiment'
 
-## Note
+- 0 - negative, 0.065
+- 1 - somewhat negative, 0.0944
+- 2 - neutral, 0.726
+- 3 - somewhat positive, 0.1615
+- 4 - positive, 0.017
 
-Do not duplicate someone else's analysis and make sure to give credit to any resources you used. :)
+All of the models we explored we overfit, including our final model. As stated above, likely additionaly cleaning and pre-processing such as adding additional stop words and lemmatization would have yielded more accurate results, including reducing bias. 
 
-Have fun!
+Given the time, provided however, Team Awesome is proud of their results. Kathy Simon was savy enough with plotly to get a working ROC AUC curve:
+
+![image](./imgs/roc_auc.png)
